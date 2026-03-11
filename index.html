@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KRISH • Web Design That Hits Different</title>
+<meta name="description" content="Looking for a web designer? Krish builds websites that convert, impress, and go viral. DM now.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #060606;
+    --white: #f5f0e8;
+    --acid: #c6ff00;
+    --orange: #ff4d00;
+    --mid: #1a1a1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--acid);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s, height 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 40px; height: 40px;
+    border: 1.5px solid var(--acid);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: left 0.12s ease, top 0.12s ease;
+    mix-blend-mode: difference;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    mix-blend-mode: normal;
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--acid);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .nav-cta {
+    background: var(--acid);
+    color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .nav-cta:hover { background: var(--orange); transform: scale(1.05); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(198,255,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(198,255,0,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(198,255,0,0.12) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    animation: pulse 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--acid);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero-title {
+    font-size: clamp(3.5rem, 12vw, 10rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.4s forwards;
+  }
+  .hero-title span {
+    -webkit-text-stroke: 2px var(--white);
+    color: transparent;
+  }
+  .hero-title .accent { color: var(--acid); -webkit-text-stroke: 0; }
+  .hero-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    color: rgba(245,240,232,0.55);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.6s forwards;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--acid);
+    color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    position: relative;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--orange);
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover::after { opacity: 1; }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-secondary {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.5);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--white); }
+  .btn-secondary::after { content: '↗'; }
+
+  /* TICKER */
+  .ticker {
+    background: var(--acid);
+    color: var(--black);
+    padding: 0.8rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0;
+  }
+  .ticker-inner {
+    display: inline-flex;
+    animation: ticker 18s linear infinite;
+    gap: 0;
+  }
+  .ticker-inner span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 3rem;
+  }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 6rem 3rem;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--acid);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--acid);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(245,240,232,0.08);
+    border: 1px solid rgba(245,240,232,0.08);
+  }
+  .service-card {
+    background: var(--black);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(198,255,0,0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .service-card:hover { background: var(--mid); }
+  .service-card:hover::before { opacity: 1; }
+  .service-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--acid);
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+    opacity: 0.7;
+  }
+  .service-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+  .service-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.8;
+  }
+
+  /* TIKTOK EMBED SECTION */
+  .tiktok-section {
+    padding: 6rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .tiktok-section { grid-template-columns: 1fr; gap: 3rem; }
+  }
+  .tiktok-left h2 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    margin-bottom: 2rem;
+  }
+  .tiktok-left h2 em {
+    font-style: normal;
+    color: var(--acid);
+  }
+  .tiktok-left p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.9;
+    margin-bottom: 2.5rem;
+  }
+  .tiktok-embed-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .tiktok-phone {
+    width: 280px;
+    background: #111;
+    border-radius: 28px;
+    border: 2px solid rgba(198,255,0,0.2);
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(198,255,0,0.1), 0 40px 80px rgba(0,0,0,0.5);
+    position: relative;
+  }
+  .tiktok-phone iframe {
+    width: 100%;
+    height: 520px;
+    border: none;
+    display: block;
+  }
+  .tiktok-phone-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(ellipse, rgba(198,255,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* STATS */
+  .stats {
+    padding: 4rem 3rem;
+    border-top: 1px solid rgba(245,240,232,0.08);
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    color: var(--acid);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    padding: 6rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::before {
+    content: 'HIRE ME';
+    position: absolute;
+    font-size: clamp(8rem, 25vw, 20rem);
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(198,255,0,0.06);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+  .cta-banner h2 {
+    font-size: clamp(2.5rem, 8vw, 7rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .cta-banner h2 span { color: var(--acid); }
+  .cta-banner p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  .cta-big {
+    display: inline-block;
+    background: var(--acid);
+    color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1.2rem 3.5rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    position: relative;
+    clip-path: polygon(16px 0%, 100% 0%, calc(100% - 16px) 100%, 0% 100%);
+  }
+  .cta-big:hover {
+    background: var(--orange);
+    transform: scale(1.03);
+    box-shadow: 0 0 40px rgba(255,77,0,0.4);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem;
+    border-top: 1px solid rgba(245,240,232,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+  .footer-logo span { color: var(--acid); }
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(245,240,232,0.25);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .services { padding: 4rem 1.5rem; }
+    .tiktok-section { padding: 4rem 1.5rem; }
+    .stats { padding: 3rem 1.5rem; }
+    .cta-banner { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+    .tiktok-phone { width: 240px; }
+    .tiktok-phone iframe { height: 440px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Krish.dev</div>
+  <a href="https://www.tiktok.com/@krishhxz/video/7615949131890035989" target="_blank" class="nav-cta">Watch on TikTok</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+  <p class="hero-tag">✦ Web Design • 2025 • Available Now</p>
+  <h1 class="hero-title">
+    WEB<br>
+    DESIGN<br>
+    <span>THAT</span><br>
+    <span class="accent">HITS.</span>
+  </h1>
+  <p class="hero-sub">I build websites that make people stop scrolling. Fast, clean, and built to convert — whatever your brand needs.</p>
+  <div class="hero-actions">
+    <a href="https://www.tiktok.com/@krishhxz/video/7615949131890035989" target="_blank" class="btn-primary"><span>▶ Watch My Work</span></a>
+    <a href="https://www.tiktok.com/@krishhxz" target="_blank" class="btn-secondary">Follow @krishhxz</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>Web Design</span><span>•</span>
+    <span>UI/UX</span><span>•</span>
+    <span>Landing Pages</span><span>•</span>
+    <span>Portfolios</span><span>•</span>
+    <span>E-Commerce</span><span>•</span>
+    <span>Brand Websites</span><span>•</span>
+    <span>@krishhxz on TikTok</span><span>•</span>
+    <span>Web Design</span><span>•</span>
+    <span>UI/UX</span><span>•</span>
+    <span>Landing Pages</span><span>•</span>
+    <span>Portfolios</span><span>•</span>
+    <span>E-Commerce</span><span>•</span>
+    <span>Brand Websites</span><span>•</span>
+    <span>@krishhxz on TikTok</span><span>•</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services">
+  <p class="section-label">What I Do</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <p class="service-num">01</p>
+      <h3 class="service-title">Landing Pages</h3>
+      <p class="service-desc">High-converting single pages that turn visitors into customers. Every pixel is intentional.</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">02</p>
+      <h3 class="service-title">Portfolio Sites</h3>
+      <p class="service-desc">Make a first impression that lasts. Built to showcase your work and get you hired.</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">03</p>
+      <h3 class="service-title">Brand Websites</h3>
+      <p class="service-desc">Full website builds that reflect your brand identity from homepage to footer.</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">04</p>
+      <h3 class="service-title">UI / UX Design</h3>
+      <p class="service-desc">Clean interfaces that feel intuitive. Designed for real users, not just looks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIKTOK + VIDEO -->
+<section class="tiktok-section">
+  <div class="tiktok-left">
+    <p class="section-label">Seen on TikTok</p>
+    <h2>WATCH<br>THE <em>WORK</em><br>IN ACTION</h2>
+    <p>Catch my latest web design projects, process videos, and behind-the-scenes on TikTok. If you found this page through the algorithm — it's working.</p>
+    <a href="https://www.tiktok.com/@krishhxz" target="_blank" class="btn-primary"><span>Follow @krishhxz</span></a>
+  </div>
+  <div class="tiktok-embed-wrap">
+    <div class="tiktok-phone-glow"></div>
+    <div class="tiktok-phone">
+      <iframe
+        src="https://www.tiktok.com/embed/v2/7615949131890035989"
+        allowfullscreen
+        allow="encrypted-media;"
+        scrolling="no"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num">48h</div>
+    <div class="stat-label">Average Turnaround</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Custom Designs</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Revisions Until Perfect</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h2>READY TO<br><span>STAND OUT?</span></h2>
+  <p>DM me on TikTok — let's build something unforgettable.</p>
+  <a href="https://www.tiktok.com/@krishhxz" target="_blank" class="cta-big">DM Me on TikTok ↗</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Krish<span>.</span></div>
+  <p class="footer-copy">© 2025 @krishhxz · Web Design · TikTok</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    cursorRing.style.left = e.clientX + 'px';
+    cursorRing.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+    });
+  });
+</script>
+</body>
+</html>
