@@ -17,9 +17,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--black);
     color: var(--white);
@@ -28,7 +26,6 @@
     cursor: none;
   }
 
-  /* CUSTOM CURSOR */
   .cursor {
     width: 12px; height: 12px;
     background: var(--acid);
@@ -51,9 +48,7 @@
     transition: left 0.12s ease, top 0.12s ease;
     mix-blend-mode: difference;
   }
-  body:hover .cursor { opacity: 1; }
 
-  /* NOISE OVERLAY */
   body::before {
     content: '';
     position: fixed;
@@ -64,7 +59,6 @@
     opacity: 0.4;
   }
 
-  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -73,7 +67,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 3rem;
-    mix-blend-mode: normal;
   }
   .nav-logo {
     font-family: 'Space Mono', monospace;
@@ -97,7 +90,6 @@
   }
   .nav-cta:hover { background: var(--orange); transform: scale(1.05); }
 
-  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -186,17 +178,7 @@
     position: relative;
     clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
   }
-  .btn-primary::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--orange);
-    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .btn-primary:hover::after { opacity: 1; }
-  .btn-primary span { position: relative; z-index: 1; }
+  .btn-primary:hover { background: var(--orange); }
   .btn-secondary {
     font-family: 'Space Mono', monospace;
     font-size: 0.8rem;
@@ -212,19 +194,16 @@
   .btn-secondary:hover { color: var(--white); }
   .btn-secondary::after { content: '↗'; }
 
-  /* TICKER */
   .ticker {
     background: var(--acid);
     color: var(--black);
     padding: 0.8rem 0;
     overflow: hidden;
     white-space: nowrap;
-    margin: 0;
   }
   .ticker-inner {
     display: inline-flex;
     animation: ticker 18s linear infinite;
-    gap: 0;
   }
   .ticker-inner span {
     font-family: 'Space Mono', monospace;
@@ -239,10 +218,7 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* SERVICES */
-  .services {
-    padding: 6rem 3rem;
-  }
+  .services { padding: 6rem 3rem; }
   .section-label {
     font-family: 'Space Mono', monospace;
     font-size: 0.7rem;
@@ -306,40 +282,33 @@
     line-height: 1.8;
   }
 
-  /* TIKTOK EMBED SECTION */
+  /* TWO TIKTOK VIDEOS */
   .tiktok-section {
     padding: 6rem 3rem;
+  }
+  .tiktok-videos {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5rem;
-    align-items: center;
+    align-items: start;
+    margin-top: 4rem;
   }
   @media (max-width: 768px) {
-    .tiktok-section { grid-template-columns: 1fr; gap: 3rem; }
+    .tiktok-videos { grid-template-columns: 1fr; gap: 3rem; }
   }
-  .tiktok-left h2 {
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
-    margin-bottom: 2rem;
-  }
-  .tiktok-left h2 em {
-    font-style: normal;
-    color: var(--acid);
-  }
-  .tiktok-left p {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-    color: rgba(245,240,232,0.5);
-    line-height: 1.9;
-    margin-bottom: 2.5rem;
-  }
-  .tiktok-embed-wrap {
-    position: relative;
+  .tiktok-video-wrap {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .tiktok-video-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--acid);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
   }
   .tiktok-phone {
     width: 280px;
@@ -348,7 +317,6 @@
     border: 2px solid rgba(198,255,0,0.2);
     overflow: hidden;
     box-shadow: 0 0 60px rgba(198,255,0,0.1), 0 40px 80px rgba(0,0,0,0.5);
-    position: relative;
   }
   .tiktok-phone iframe {
     width: 100%;
@@ -356,15 +324,29 @@
     border: none;
     display: block;
   }
-  .tiktok-phone-glow {
-    position: absolute;
-    inset: -20px;
-    background: radial-gradient(ellipse, rgba(198,255,0,0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: -1;
+  .tiktok-intro {
+    max-width: 600px;
+  }
+  .tiktok-intro h2 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+  }
+  .tiktok-intro h2 em {
+    font-style: normal;
+    color: var(--acid);
+  }
+  .tiktok-intro p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.9;
+    margin-bottom: 2rem;
   }
 
-  /* STATS */
   .stats {
     padding: 4rem 3rem;
     border-top: 1px solid rgba(245,240,232,0.08);
@@ -390,20 +372,19 @@
     margin-top: 0.5rem;
   }
 
-  /* CTA BANNER */
-  .cta-banner {
+  /* CONTACT SECTION */
+  .contact {
     padding: 6rem 3rem;
-    text-align: center;
     position: relative;
     overflow: hidden;
   }
-  .cta-banner::before {
-    content: 'HIRE ME';
+  .contact::before {
+    content: 'CONTACT';
     position: absolute;
-    font-size: clamp(8rem, 25vw, 20rem);
+    font-size: clamp(6rem, 20vw, 16rem);
     font-weight: 800;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(198,255,0,0.06);
+    -webkit-text-stroke: 1px rgba(198,255,0,0.05);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -412,52 +393,95 @@
     letter-spacing: -0.05em;
     text-transform: uppercase;
   }
-  .cta-banner h2 {
-    font-size: clamp(2.5rem, 8vw, 7rem);
+  .contact h2 {
+    font-size: clamp(2.5rem, 7vw, 6rem);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.04em;
     line-height: 0.9;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     position: relative;
   }
-  .cta-banner h2 span { color: var(--acid); }
-  .cta-banner p {
+  .contact h2 span { color: var(--acid); }
+  .contact-sub {
     font-family: 'Space Mono', monospace;
     font-size: 0.85rem;
     color: rgba(245,240,232,0.4);
-    margin-bottom: 3rem;
+    margin-bottom: 3.5rem;
     position: relative;
   }
-  .cta-big {
-    display: inline-block;
-    background: var(--acid);
-    color: var(--black);
+  .contact-buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
     font-family: 'Space Mono', monospace;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 1.2rem 3.5rem;
     text-decoration: none;
     transition: all 0.25s;
-    position: relative;
-    clip-path: polygon(16px 0%, 100% 0%, calc(100% - 16px) 100%, 0% 100%);
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
   }
-  .cta-big:hover {
+  .contact-btn.whatsapp {
+    background: #25D366;
+    color: #000;
+  }
+  .contact-btn.whatsapp:hover {
+    background: #1ebe5d;
+    transform: scale(1.04);
+    box-shadow: 0 0 30px rgba(37,211,102,0.3);
+  }
+  .contact-btn.email {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(245,240,232,0.2);
+    clip-path: none;
+  }
+  .contact-btn.email:hover {
+    border-color: var(--acid);
+    color: var(--acid);
+  }
+  .contact-btn.tiktok {
+    background: var(--acid);
+    color: var(--black);
+  }
+  .contact-btn.tiktok:hover {
     background: var(--orange);
-    transform: scale(1.03);
-    box-shadow: 0 0 40px rgba(255,77,0,0.4);
+    transform: scale(1.04);
   }
+  .contact-info {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+  }
+  .contact-info-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.35);
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .contact-info-item span { color: var(--acid); }
 
-  /* FOOTER */
   footer {
     padding: 3rem;
     border-top: 1px solid rgba(245,240,232,0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: gap;
+    flex-wrap: wrap;
     gap: 1rem;
   }
   .footer-logo {
@@ -486,10 +510,11 @@
     .services { padding: 4rem 1.5rem; }
     .tiktok-section { padding: 4rem 1.5rem; }
     .stats { padding: 3rem 1.5rem; }
-    .cta-banner { padding: 4rem 1.5rem; }
+    .contact { padding: 4rem 1.5rem; }
     footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
     .tiktok-phone { width: 240px; }
     .tiktok-phone iframe { height: 440px; }
+    .contact-buttons { flex-direction: column; }
   }
 </style>
 </head>
@@ -500,8 +525,8 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Krish.dev</div>
-  <a href="https://www.tiktok.com/@krishhxz/video/7615949131890035989" target="_blank" class="nav-cta">Watch on TikTok</a>
+  <div class="nav-logo">Krish.biz</div>
+  <a href="https://www.tiktok.com/@krishhxz" target="_blank" class="nav-cta">Watch on TikTok</a>
 </nav>
 
 <!-- HERO -->
@@ -517,7 +542,7 @@
   </h1>
   <p class="hero-sub">I build websites that make people stop scrolling. Fast, clean, and built to convert — whatever your brand needs.</p>
   <div class="hero-actions">
-    <a href="https://www.tiktok.com/@krishhxz/video/7615949131890035989" target="_blank" class="btn-primary"><span>▶ Watch My Work</span></a>
+    <a href="https://www.tiktok.com/@krishhxz/video/7615949131890035989" target="_blank" class="btn-primary">▶ Watch My Work</a>
     <a href="https://www.tiktok.com/@krishhxz" target="_blank" class="btn-secondary">Follow @krishhxz</a>
   </div>
 </section>
@@ -569,23 +594,36 @@
   </div>
 </section>
 
-<!-- TIKTOK + VIDEO -->
+<!-- TIKTOK VIDEOS -->
 <section class="tiktok-section">
-  <div class="tiktok-left">
-    <p class="section-label">Seen on TikTok</p>
-    <h2>WATCH<br>THE <em>WORK</em><br>IN ACTION</h2>
-    <p>Catch my latest web design projects, process videos, and behind-the-scenes on TikTok. If you found this page through the algorithm — it's working.</p>
-    <a href="https://www.tiktok.com/@krishhxz" target="_blank" class="btn-primary"><span>Follow @krishhxz</span></a>
+  <p class="section-label">Seen on TikTok</p>
+  <div class="tiktok-intro">
+    <h2>WATCH THE <em>WORK</em><br>IN ACTION</h2>
+    <p>Catch my latest web design projects and process videos on TikTok. If the algorithm sent you here — it's working. 😎</p>
+    <a href="https://www.tiktok.com/@krishhxz" target="_blank" class="btn-primary">Follow @krishhxz ↗</a>
   </div>
-  <div class="tiktok-embed-wrap">
-    <div class="tiktok-phone-glow"></div>
-    <div class="tiktok-phone">
-      <iframe
-        src="https://www.tiktok.com/embed/v2/7615949131890035989"
-        allowfullscreen
-        allow="encrypted-media;"
-        scrolling="no"
-      ></iframe>
+  <div class="tiktok-videos">
+    <div class="tiktok-video-wrap">
+      <p class="tiktok-video-label">✦ Video 01</p>
+      <div class="tiktok-phone">
+        <iframe
+          src="https://www.tiktok.com/embed/v2/7615949131890035989"
+          allowfullscreen
+          allow="encrypted-media;"
+          scrolling="no"
+        ></iframe>
+      </div>
+    </div>
+    <div class="tiktok-video-wrap">
+      <p class="tiktok-video-label">✦ Video 02</p>
+      <div class="tiktok-phone">
+        <iframe
+          src="https://www.tiktok.com/embed/v2/7615688630807448852"
+          allowfullscreen
+          allow="encrypted-media;"
+          scrolling="no"
+        ></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -606,21 +644,36 @@
   </div>
 </div>
 
-<!-- CTA -->
-<section class="cta-banner">
+<!-- CONTACT -->
+<section class="contact">
+  <p class="section-label">Get In Touch</p>
   <h2>READY TO<br><span>STAND OUT?</span></h2>
-  <p>DM me on TikTok — let's build something unforgettable.</p>
-  <a href="https://www.tiktok.com/@krishhxz" target="_blank" class="cta-big">DM Me on TikTok ↗</a>
+  <p class="contact-sub">Let's build something unforgettable. Reach out via WhatsApp, email, or TikTok DM.</p>
+  <div class="contact-buttons">
+    <a href="https://wa.me/60102021659" target="_blank" class="contact-btn whatsapp">
+      💬 WhatsApp Me
+    </a>
+    <a href="mailto:krishnaraj_nagarajan@anchorsprint.com" class="contact-btn email">
+      ✉ Email Me
+    </a>
+    <a href="https://www.tiktok.com/@krishhxz" target="_blank" class="contact-btn tiktok">
+      ↗ TikTok DM
+    </a>
+  </div>
+  <div class="contact-info">
+    <div class="contact-info-item"><span>WhatsApp</span> +60 10-202 1659</div>
+    <div class="contact-info-item"><span>Email</span> krishnaraj_nagarajan@anchorsprint.com</div>
+    <div class="contact-info-item"><span>TikTok</span> @krishhxz</div>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Krish<span>.</span></div>
-  <p class="footer-copy">© 2025 @krishhxz · Web Design · TikTok</p>
+  <div class="footer-logo">Krish<span>.biz</span></div>
+  <p class="footer-copy">© 2025 @krishhxz · Web Design · krish.biz</p>
 </footer>
 
 <script>
-  // Custom cursor
   const cursor = document.getElementById('cursor');
   const cursorRing = document.getElementById('cursorRing');
   document.addEventListener('mousemove', e => {
